@@ -1,12 +1,12 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-import { WordsContextProvider } from './WordsContext'
+import { MainContextProvider } from './MainContext'
 import App from './App'
 
 ReactDOM.render(
-  <WordsContextProvider>
+  <MainContextProvider>
     <App />
-  </WordsContextProvider>,
+  </MainContextProvider>,
   document.getElementById('root')
 )

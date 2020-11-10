@@ -1,21 +1,21 @@
 import React, { createContext, useEffect, useState } from 'react'
 import { initTree, autocomplete } from './utils'
 
-type WordsContextProps = {
+type MainContextProps = {
   ready: boolean,
   autocomplete(word: string, limit: number): Array<string>
 }
 
-const initialState: WordsContextProps = {
+const initialState: MainContextProps = {
   ready: false,
   autocomplete
 }
 
 type Props = { children: React.ReactNode }
 
-export const WordsContext = createContext<WordsContextProps>(initialState)
+export const MainContext = createContext<MainContextProps>(initialState)
 
-export const WordsContextProvider: React.FC<Props> = ({ children }: Props) => {
+export const MainContextProvider: React.FC<Props> = ({ children }: Props) => {
   const [ready, setReady] = useState<boolean>(false)
 
   useEffect(() => {
@@ -23,8 +23,8 @@ export const WordsContextProvider: React.FC<Props> = ({ children }: Props) => {
   }, [])
 
   return (
-    <WordsContext.Provider value={{ ready, autocomplete }}>
+    <MainContext.Provider value={{ ready, autocomplete }}>
       {children}
-    </WordsContext.Provider>
+    </MainContext.Provider>
   )
 }

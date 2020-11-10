@@ -5,7 +5,8 @@
   --purple-grey: #f3f0f6;
   --purple-main: #490e67;
   --purple-medium: #9266cc;
-  --almost-transparent: #00000017;
+  --black-transparent: #00000017;
+  --white-transparent: #ffffff30;
 }
 
 html {
@@ -30,19 +31,25 @@ ul {
   box-sizing: border-box;
 }
 
-.autocomplete-demo {
+.autocomplete {
   margin: 2rem auto;
   max-width: 25rem;
   width: 90%;
 }
 
-.autocomplete-demo h1 {
+.autocomplete .logo {
+  background: var(--plain-white);
+  font-weight: 400;
+  color: #222;
+}
+
+.autocomplete h1 {
   color: var(--purple-main);
   text-align: center;
   width: 100%;
 }
 
-.autocomplete-demo input {
+.autocomplete input {
   border: 2px solid var(--grey-medium);
   border-radius: 4px;
   font-size: 1.2rem;
@@ -52,27 +59,27 @@ ul {
   width: 100%;
 }
 
-.autocomplete-demo input:hover,
-.autocomplete-demo input:focus {
+.autocomplete input:hover,
+.autocomplete input:focus {
   border-color: var(--purple-medium);
   outline: none;
 }
 
-.autocomplete-demo ul,
-.autocomplete-demo li {
+.autocomplete ul,
+.autocomplete li {
   list-style: none;
   margin: 0;
   padding: 0;
   width: 100%;
 }
 
-.autocomplete-demo ul {
+.autocomplete ul {
   background: var(--plain-white);
   border-radius: 4px;
   overflow: hidden;
 }
 
-.autocomplete-demo button {
+.autocomplete button {
   background: none;
   border: none;
   border-bottom: 1px solid var(--purple-grey);
@@ -87,15 +94,48 @@ ul {
   width: 100%;
 }
 
-.autocomplete-demo button:hover,
-.autocomplete-demo button:focus {
-  background: var(--almost-transparent);
+.autocomplete button:hover,
+.autocomplete button:focus {
+  background: var(--black-transparent);
   border: none;
   border-bottom: 1px solid var(--purple-grey);
   outline: none;
   transition: background 0.1s ease;
 }
 
-.autocomplete-demo li:last-child button {
+.autocomplete li:last-child button {
   border-bottom: none;
+}
+
+.autocomplete .loading {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: var(--white-transparent);
+  backdrop-filter: blur(6px);
+}
+
+.autocomplete .loading-circle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: -5rem;
+  width: 10rem;
+  height: 10rem;
+  border: 1rem solid var(--purple-medium);
+  border-left-color: transparent;
+  border-right-color: transparent;
+  animation: rotate 2s infinite linear;
+  border-radius: 50%;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }

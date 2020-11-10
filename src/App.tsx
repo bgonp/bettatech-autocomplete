@@ -1,29 +1,30 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { WordsContext } from './WordsContext'
+import { MainContext } from './MainContext'
+import Loading from './Loading'
 
 import './App.css'
 
-const MAX_SUGGESTIONS = 10
+const MAX_SUGGESTIONS = 12
 
 const App: React.FC = () => {
-  const { ready, autocomplete } = useContext(WordsContext)
+  const { ready, autocomplete } = useContext(MainContext)
 
   const [value, setValue] = useState<string>('')
   const [suggestions, setSuggestions] = useState<string[]>([])
 
   useEffect(() => {
     setSuggestions(value ? autocomplete(value, MAX_SUGGESTIONS) : [])
-  }, [value, ready])
+  }, [value])
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setValue(e.target.value)
 
   const handleClick = (suggestion: string) => () =>
-    setValue(value => value + suggestion)
+    setValue(value + suggestion)
 
   return (
-    <div className="autocomplete-demo">
-      <h1>Autocomplete demo</h1>
+    <div className="autocomplete">
+      <h1>Autocomplete</h1>
 
       <input type="text" onChange={handleChange} value={value} />
 
@@ -34,6 +35,8 @@ const App: React.FC = () => {
           </button>
         </li>
       ))}</ul>
+
+      {ready || <Loading />}
     </div>
   )
 }

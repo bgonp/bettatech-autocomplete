@@ -9,8 +9,6 @@ const getInitialTree = (): Tree => ({ isWord: false, children: {} })
 
 const arrayToTree = (words: Array<string>): Promise<Tree> =>
   new Promise(resolve => {
-    words.sort()
-
     const tree = words.reduce(
       (tree, word) => addWord(word, tree),
       getInitialTree()
@@ -20,10 +18,10 @@ const arrayToTree = (words: Array<string>): Promise<Tree> =>
   })
 
 const addWord = (word: string, tree: Tree) => {
-  const letters: Array<string> = word.split('')
+  const letters: Array<string> = word.toLowerCase().split('')
   const lastIndex: number = letters.length - 1
 
-  return letters.reduce((subTree: Tree, letter: string, index: number) => {
+  letters.reduce((subTree: Tree, letter: string, index: number) => {
     const { children } = subTree
 
     if (!children[letter]) children[letter] = getInitialTree()
@@ -31,6 +29,8 @@ const addWord = (word: string, tree: Tree) => {
 
     return children[letter]
   }, tree)
+
+  return tree
 }
 
 let wordsTree: Tree = getInitialTree()
@@ -61,7 +61,7 @@ const treeToArray = (tree: Tree, limit: number): Array<string> => {
 const initTree = async () => { wordsTree = await arrayToTree(WORDS) }
 
 const autocomplete = (word: string, limit: number): Array<string> => {
-  const letters: Array<string> = word.split('')
+  const letters: Array<string> = word.toLowerCase().split('')
   const subTree: Tree = letters.reduce(({ children }, letter) =>
     children[letter] || getInitialTree(), wordsTree)
 
