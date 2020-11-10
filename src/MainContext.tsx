@@ -1,14 +1,14 @@
 import React, { createContext, useEffect, useState } from 'react'
-import { initTree, autocomplete } from './utils'
+import { initTree, getSuggestions } from './utils'
 
 type MainContextProps = {
   ready: boolean,
-  autocomplete(word: string, limit: number): Array<string>
+  getSuggestions(word: string, limit: number): Array<string>
 }
 
 const initialState: MainContextProps = {
   ready: false,
-  autocomplete
+  getSuggestions
 }
 
 type Props = { children: React.ReactNode }
@@ -23,7 +23,7 @@ export const MainContextProvider: React.FC<Props> = ({ children }: Props) => {
   }, [])
 
   return (
-    <MainContext.Provider value={{ ready, autocomplete }}>
+    <MainContext.Provider value={{ ready, getSuggestions }}>
       {children}
     </MainContext.Provider>
   )

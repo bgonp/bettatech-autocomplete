@@ -7,13 +7,13 @@ import './App.css'
 const MAX_SUGGESTIONS = 12
 
 const App: React.FC = () => {
-  const { ready, autocomplete } = useContext(MainContext)
+  const { ready, getSuggestions } = useContext(MainContext)
 
   const [value, setValue] = useState<string>('')
   const [suggestions, setSuggestions] = useState<string[]>([])
 
   useEffect(() => {
-    setSuggestions(value ? autocomplete(value, MAX_SUGGESTIONS) : [])
+    setSuggestions(value ? getSuggestions(value, MAX_SUGGESTIONS) : [])
   }, [value])
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
