@@ -39,8 +39,17 @@ ul {
 
 .autocomplete .logo {
   background: var(--plain-white);
-  font-weight: 400;
+  border-radius: 1.5rem;
+  box-shadow: 0 0 1rem #0001;
   color: #222;
+  display: inline-block;
+  font-family: monospace;
+  letter-spacing: -4px;
+  line-height: 3rem;
+  margin: 0 1rem 0 0;
+  text-shadow: 1px -1px #f006, 1px 1px #0f06;
+  transform: rotate(15deg);
+  width: 3rem;
 }
 
 .autocomplete h1 {

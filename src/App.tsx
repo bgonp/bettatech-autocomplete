@@ -24,7 +24,7 @@ const App: React.FC = () => {
 
   return (
     <div className="autocomplete">
-      <h1>Autocomplete</h1>
+      <h1><span className="logo">{'{};'}</span>autocomplete</h1>
 
       <input type="text" onChange={handleChange} value={value} />
 
