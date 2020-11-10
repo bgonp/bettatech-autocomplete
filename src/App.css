@@ -1,38 +1,101 @@
-.App {
+:root {
+  --grey-medium: #929298;
+  --greyish-brown: #444;
+  --plain-white: #fff;
+  --purple-grey: #f3f0f6;
+  --purple-main: #490e67;
+  --purple-medium: #9266cc;
+  --almost-transparent: #00000017;
+}
+
+html {
+  background: var(--purple-grey);
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+button,
+div,
+h1,
+input,
+li,
+ul {
+  box-sizing: border-box;
+}
+
+.autocomplete-demo {
+  margin: 2rem auto;
+  max-width: 25rem;
+  width: 90%;
+}
+
+.autocomplete-demo h1 {
+  color: var(--purple-main);
   text-align: center;
+  width: 100%;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.autocomplete-demo input {
+  border: 2px solid var(--grey-medium);
+  border-radius: 4px;
+  font-size: 1.2rem;
+  margin: 0 0 1rem;
+  padding: 1rem 1.5rem;
+  transition: border 0.2s ease;
+  width: 100%;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.autocomplete-demo input:hover,
+.autocomplete-demo input:focus {
+  border-color: var(--purple-medium);
+  outline: none;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.autocomplete-demo ul,
+.autocomplete-demo li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
 }
 
-.App-link {
-  color: #61dafb;
+.autocomplete-demo ul {
+  background: var(--plain-white);
+  border-radius: 4px;
+  overflow: hidden;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.autocomplete-demo button {
+  background: none;
+  border: none;
+  border-bottom: 1px solid var(--purple-grey);
+  color: var(--greyish-brown);
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 200;
+  line-height: 1;
+  padding: 0.8rem 1.5rem;
+  text-align: left;
+  transition: background 0.4s ease;
+  width: 100%;
+}
+
+.autocomplete-demo button:hover,
+.autocomplete-demo button:focus {
+  background: var(--almost-transparent);
+  border: none;
+  border-bottom: 1px solid var(--purple-grey);
+  outline: none;
+  transition: background 0.1s ease;
+}
+
+.autocomplete-demo li:last-child button {
+  border-bottom: none;
 }
