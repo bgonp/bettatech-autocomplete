@@ -1,6 +1,6 @@
 # BettaTech - Autocompletado
 
-Propuesta de solución al problema del autocompletado propuesto en **[este video](https://www.youtube.com/watch?v=jIlB1D8e4rk&ab_channel=BettaTech)**
+Propuesta de solución al problema del autocompletado propuesto en **[este video](https://www.youtube.com/watch?v=jIlB1D8e4rk&ab_channel=BettaTech)** de BettaTech.
 
 Desarrollado con React y TypeScript.
 
