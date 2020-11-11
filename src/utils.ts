@@ -38,7 +38,7 @@ const arrayToTree = (words: Array<string>): Promise<Tree> =>
 
 // Agrega al árbol una nueva palabra, cada letra en un nivel del árbol.
 const addWord = (word: string, tree: Tree) => {
-  const letters: Array<string> = word.toLowerCase().split('')
+  const letters: Array<string> = normalize(word).split('')
   const lastIndex: number = letters.length - 1
 
   letters.reduce((subTree: Tree, letter: string, index: number) => {
@@ -67,13 +67,20 @@ const treeToArray = (tree: Tree, limit: number): Array<string> => {
   return words
 }
 
+// Normaliza la palabra (transforma acentos y mayúsculas)
+const normalize = (word: string) =>
+  word
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+
 // Inicializa el árbol principal generado a partir del array de palabras.
 const initTree = async () => { wordsTree = await arrayToTree(WORDS) }
 
 // Dado un prefijo y un máximo de sugerencias, devuelve un array con todos
 // los sufijos válidos (hasta el máximo indicado).
 const getSuggestions = (word: string, limit: number): Array<string> => {
-  const letters: Array<string> = word.toLowerCase().split('')
+  const letters: Array<string> = normalize(word).split('')
   const subTree: Tree = letters.reduce(({ children }, letter) =>
     children[letter] || getInitialTree(), wordsTree)
 
