@@ -28,29 +28,24 @@ function * wordGenerator (tree: Tree, prefix: string = ''): Generator<string, vo
 // Partiendo del array de palabras, genera el árbol de búsqueda.
 const arrayToTree = (words: Array<string>): Promise<Tree> =>
   new Promise(resolve => {
-    const tree = words.reduce(
-      (tree, word) => addWord(word, tree),
-      getInitialTree()
-    )
+    const tree = getInitialTree()
+    words.forEach(word => {
+      addWord(word.toLowerCase(), tree)
+    })
 
     resolve(tree)
   })
 
 // Agrega al árbol una nueva palabra, cada letra en un nivel del árbol.
 const addWord = (word: string, tree: Tree) => {
-  const letters: Array<string> = word.toLowerCase().split('')
-  const lastIndex: number = letters.length - 1
+  const letter = word[0]
+  const nextWord = word.slice(1)
+  const { children } = tree
 
-  letters.reduce((subTree: Tree, letter: string, index: number) => {
-    const { children } = subTree
+  if (!children[letter]) children[letter] = getInitialTree()
 
-    if (!children[letter]) children[letter] = getInitialTree()
-    if (index === lastIndex) children[letter].isWord = true
-
-    return children[letter]
-  }, tree)
-
-  return tree
+  if (nextWord) addWord(nextWord, children[letter])
+  else children[letter].isWord = true
 }
 
 // Dado un árbol (subárbol del principal) y un límite, devuelve un array
