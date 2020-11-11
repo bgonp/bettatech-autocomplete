@@ -29,22 +29,23 @@ function * wordGenerator (tree: Tree, prefix: string = ''): Generator<string, vo
 const arrayToTree = (words: Array<string>): Promise<Tree> =>
   new Promise(resolve => {
     const tree = getInitialTree()
+
     words.forEach(word => {
-      addWord(word.toLowerCase(), tree)
+      const letters = [...word.toLowerCase()]
+      addLetters(letters, tree)
     })
 
     resolve(tree)
   })
 
 // Agrega al árbol una nueva palabra, cada letra en un nivel del árbol.
-const addWord = (word: string, tree: Tree) => {
-  const letter = word[0]
-  const nextWord = word.slice(1)
+const addLetters = (letters: Array<string>, tree: Tree) => {
+  const [letter, ...nextLetters] = letters
   const { children } = tree
 
   if (!children[letter]) children[letter] = getInitialTree()
 
-  if (nextWord) addWord(nextWord, children[letter])
+  if (nextLetters.length) addLetters(nextLetters, children[letter])
   else children[letter].isWord = true
 }
 
