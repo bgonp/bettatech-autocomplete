@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { MainContext } from './MainContext'
 import Loading from './Loading'
 
@@ -12,8 +12,14 @@ const App: React.FC = () => {
   const [value, setValue] = useState<string>('')
   const [suggestions, setSuggestions] = useState<string[]>([])
 
+  const inputRef = useRef<HTMLInputElement>(null)
+
   useEffect(() => {
     setSuggestions(value ? getSuggestions(value, MAX_SUGGESTIONS) : [])
+  }, [value])
+
+  useLayoutEffect(() => {
+    inputRef.current?.focus()
   }, [value])
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
@@ -26,7 +32,7 @@ const App: React.FC = () => {
     <div className="autocomplete">
       <h1><span className="logo">{'{};'}</span>autocomplete</h1>
 
-      <input type="text" onChange={handleChange} value={value} />
+      <input type="text" onChange={handleChange} ref={inputRef} value={value} />
 
       <ul>{suggestions.map((suggestion, index) => (
         <li key={index}>
