@@ -19,4 +19,8 @@ He usado Node 14.6.0 con npm 6.14.8 para construir este proyecto.
 
 Una vez clonado, ejecutar `npm install` para instalar las dependencias y `npm run start` para levantar la aplicación en localhost:3000
 
-![Screenshot](https://raw.githubusercontent.com/bgonp/bettatech-autocomplete/master/screenshot.png)
+# Demo
+
+La última versión de esta aplicación esta desplegada en Vercel y puede usarse desde este enlace: [BettaTech autocomplete @ Vercel](https://bettatech-autocomplete.vercel.app/)
+
+[![Screenshot](https://raw.githubusercontent.com/bgonp/bettatech-autocomplete/master/screenshot.png)](https://bettatech-autocomplete.vercel.app/)
