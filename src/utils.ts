@@ -6,15 +6,17 @@ type Tree = {
   children: { [letter: string]: Tree }
 }
 
-// Array con más de un millón de palabras (caracteres aleatorios, no palabras reales).
+// Array con más de un millón de palabras (muchas aleatorias)
 const WORDS = require('./words.json')
 
 // Primer nodo del árbol de búsqueda, del que parten todas las palabras.
 const getInitialTree = (): Tree => ({ isWord: false, children: {} })
 let wordsTree: Tree = getInitialTree()
 
-// Generador que, dado un árbol (subárbol del principal) y un prefijo, devuelve un sufijo válido.
-function * wordGenerator (tree: Tree, prefix: string = ''): Generator<string, void, undefined> {
+// Generador que, dado un árbol (subárbol del principal) y un prefijo,
+// devuelve un sufijo válido.
+function * wordGenerator (tree: Tree, prefix: string = ''):
+Generator<string, void, undefined> {
   const { children } = tree
 
   for (const letter in children) {
@@ -29,12 +31,10 @@ function * wordGenerator (tree: Tree, prefix: string = ''): Generator<string, vo
 const arrayToTree = (words: Array<string>): Promise<Tree> =>
   new Promise(resolve => {
     const tree = getInitialTree()
-
     words.forEach(word => {
-      const letters = [...word.toLowerCase()]
-      addLetters(letters, tree)
+      const letters = word.toLowerCase().split('')
+      if (letters.length > 0) addLetters(letters, tree)
     })
-
     resolve(tree)
   })
 
@@ -45,7 +45,7 @@ const addLetters = (letters: Array<string>, tree: Tree) => {
 
   if (!children[letter]) children[letter] = getInitialTree()
 
-  if (nextLetters.length) addLetters(nextLetters, children[letter])
+  if (nextLetters.length > 0) addLetters(nextLetters, children[letter])
   else children[letter].isWord = true
 }
 
@@ -55,8 +55,9 @@ const treeToArray = (tree: Tree, limit: number): Array<string> => {
   const wordGen = wordGenerator(tree)
   const words = []
 
-  let word
-  while (words.length < limit && !(word = wordGen.next()).done) {
+  while (words.length < limit) {
+    const word = wordGen.next()
+    if (word.done) break
     words.push(word.value)
   }
 
@@ -70,8 +71,10 @@ const initTree = async () => { wordsTree = await arrayToTree(WORDS) }
 // los sufijos válidos (hasta el máximo indicado).
 const getSuggestions = (word: string, limit: number): Array<string> => {
   const letters: Array<string> = word.toLowerCase().split('')
-  const subTree: Tree = letters.reduce(({ children }, letter) =>
-    children[letter] || getInitialTree(), wordsTree)
+  const subTree: Tree = letters.reduce(
+    ({ children }, letter) => children[letter] || getInitialTree(),
+    wordsTree
+  )
 
   return treeToArray(subTree, limit)
 }
